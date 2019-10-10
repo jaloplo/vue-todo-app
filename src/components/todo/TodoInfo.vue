@@ -1,19 +1,23 @@
 <template>
     <div class="columns is-centered todo-info">
-        <ul class="column is-full">
-            <li class="columns">
-                <div class="column is-full is-size-7"><span class="has-text-weight-semibold">Completed tasks:</span> {{ todos.filter(t => t.completed === true).length }}</div>
-            </li>
-            <li class="columns">
-                <div class="column is-full is-size-7"><span class="has-text-weight-semibold">Total tasks:</span> {{ todos.length }}</div>
-            </li>
-        </ul>
+        <div class="column is-full">
+            <div class="content">
+                <div>Total tasks: {{ todos.length}}</div>
+                <div>Completed tasks: {{ completedTodos.length }}</div>
+            </div>
+            <progress class="progress is-primary" :value="completedTodos.length" :max="todos.length" />
+        </div>
     </div>
 </template>
 
 <script>
 export default {
     name: 'TodoInfo',
-    props: [ 'todos' ]
+    props: [ 'todos' ],
+    computed: {
+        completedTodos() {
+            return this.todos.filter(t => t.completed === true);
+        }
+    }
 }
 </script>
